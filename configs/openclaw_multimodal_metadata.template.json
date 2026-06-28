@@ -1,0 +1,24 @@
+{
+  "_comment": "OpenClaw model entry template for multimodal (VLM) models. Add to models.providers.llamacpp.models[] in openclaw.json.",
+  "id": "FILL_IN.gguf",
+  "name": "FILL_IN model label",
+  "contextWindow": 32768,
+  "contextTokens": 32768,
+  "maxTokens": 4096,
+  "input": ["text", "image"],
+  "reasoning": false,
+  "cost": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "input": 0,
+    "output": 0
+  },
+  "compat": {
+    "supportsTools": true,
+    "supportsUsageInStreaming": true,
+    "supportsReasoningEffort": false,
+    "supportsStrictMode": false,
+    "thinkingFormat": "openrouter",
+    "maxTokensField": "max_tokens"
+  }
+}

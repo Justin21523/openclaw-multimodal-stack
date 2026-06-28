@@ -1,0 +1,58 @@
+# Qwen VLM Profile Template
+# Fill in actual values after download and verification.
+# This template covers both Qwen3.6 VL and Qwen2.5-VL candidates.
+
+alias: "qwenvlm"   # replace with: qwenvlm36-27 / qwenvlm36-35 / qwenvlm25-32
+label: "Qwen VLM — FILL IN"
+role: candidate_vlm
+status: pending_download
+
+model:
+  id: "FILL_IN.gguf"
+  path: "/mnt/c/ai_models/language/vlm/qwen/FILL_IN/FILL_IN.gguf"
+  quantization: Q4_K_M
+  family: "qwen36_vl"  # or qwen25_vl
+
+mmproj:
+  path: "/mnt/c/ai_models/language/vlm/qwen/FILL_IN/mmproj-FILL_IN-f16.gguf"
+  offload: cpu         # --no-mmproj-offload (recommended for R9700 32GB)
+  size_mb: ~300        # approximate — check actual file size
+
+launch:
+  ctx_size: 32768      # conservative; increase to 65536 if VRAM allows
+  n_gpu_layers: 99
+  max_tokens: 4096
+  batch_size: 2048
+  ubatch_size: 1024
+  parallel: 1
+  image_max_tokens: 1024
+  media_path: "~/.openclaw/media/inbound"
+  reasoning: "off"
+  reasoning_budget: 0
+
+vram_profile:
+  model_q4km_gb: "FILL_IN"
+  kv_cache_32k_gb: ~2
+  total_gb: "FILL_IN"
+  limit_gb: 34.2
+  safe: "VERIFY"
+
+openclaw:
+  input: ["text", "image"]
+  context_window: 32768
+  max_tokens: 4096
+  timeout_seconds: 240
+
+download:
+  hf_repo: "FILL_IN"
+  model_file: "FILL_IN-Q4_K_M.gguf"
+  mmproj_file: "mmproj-FILL_IN-f16.gguf"
+  estimated_total_gb: "FILL_IN"
+  requires_approval: true
+
+validation:
+  v1: "curl /v1/models — expect input includes 'image'"
+  v2: "POST /v1/chat/completions with test PNG — expect description"
+  v3: "POST /api/image-test — Model Control UI"
+  v4: "openclaw infer image describe test_images/test_photo.jpg"
+  v5: "Switch back to gemma31 after test"

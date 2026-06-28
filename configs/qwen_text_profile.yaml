@@ -1,0 +1,36 @@
+profiles:
+  - alias: qwen27
+    label: "Qwen3.6 27B Q4_K_M (text-only)"
+    role: primary_text
+    status: active
+    model:
+      id: "Qwen3.6-27B-Q4_K_M.gguf"
+      path: "/mnt/c/ai_models/language/llm/Qwen3.6-27B-GGUF/Qwen3.6-27B-Q4_K_M.gguf"
+      family: qwen36
+    launch:
+      ctx_size: 131072
+      n_gpu_layers: 99
+      max_tokens: 4096
+    openclaw:
+      input: ["text"]
+      context_window: 131072
+      max_tokens: 4096
+    notes: "Primary everyday model. Do NOT add mmproj without a confirmed compatible projector."
+
+  - alias: qwen35
+    label: "Qwen3.6 35B-A3B Q4_K_M (text-only MoE)"
+    role: candidate_text
+    status: active
+    model:
+      id: "Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf"
+      path: "/mnt/c/ai_models/language/llm/Qwen3.6-35B-A3B-GGUF/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf"
+      family: qwen36_moe
+    launch:
+      ctx_size: 262144
+      n_gpu_layers: 99
+      max_tokens: 4096
+    openclaw:
+      input: ["text"]
+      context_window: 262144
+      max_tokens: 4096
+    notes: "MoE model with 3B active params. Efficient but text-only."

@@ -1,0 +1,37 @@
+# Timeout and History Policy
+# Reference for current OpenClaw settings (as of 2026-05-07)
+
+timeouts:
+  llama_server_inference: 240s        # models.providers.llamacpp.timeoutSeconds
+  embedded_agent_run: 240s            # agents.defaults.model.timeoutMs / 1000
+  tools_image_analysis: 240s          # tools.media.image.timeoutSeconds
+  tools_web_search: 20s               # tools.web.search.timeoutSeconds
+  tools_web_fetch: 25s                # tools.web.fetch.timeoutSeconds
+
+chat_history:
+  # These values are HARDCODED in the compiled OpenClaw bundle.
+  # They CANNOT be changed via openclaw.json config.
+  max_total_bytes: 6_291_456          # 6 MB — maxChatHistoryMessagesBytes
+  max_single_message_bytes: 131_072   # 128 KB — CHAT_HISTORY_MAX_SINGLE_MESSAGE_BYTES
+
+  # This value IS configurable via openclaw.json
+  max_chars_webchat: 50000            # gateway.webchat.chatHistoryMaxChars
+
+  # Practical consequence for image messages:
+  # A base64 image data URL is typically 1-2 MB.
+  # Any message containing an image WILL exceed the 128 KB limit.
+  # Result: image replaced with "[chat.history omitted: message too large]"
+
+image_limits:
+  # These values are HARDCODED in the compiled OpenClaw bundle.
+  max_webchat_image_decoded_bytes: 1_500_000   # ~1.43 MB
+  max_webchat_image_data_url_chars: 2_000_000  # 2 M chars
+
+  # These values ARE configurable
+  tools_max_bytes: 52_428_800         # tools.media.image.maxBytes (50 MB)
+  tools_max_chars: 1200               # tools.media.image.maxChars
+
+media_paths:
+  inbound: "~/.openclaw/media/inbound"
+  llama_media_path: "~/.openclaw/media/inbound"
+  skill_script_reads_from: "~/.openclaw/media/inbound"

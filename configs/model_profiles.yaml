@@ -1,0 +1,21 @@
+profiles:
+  gemma31:
+    type: vlm
+    status: active
+    file: configs/gemma_vlm_profile.yaml
+
+  qwen27:
+    type: text
+    status: active
+    file: configs/qwen_text_profile.yaml
+
+  qwen35:
+    type: text
+    status: active
+    file: configs/qwen_text_profile.yaml
+
+  qwenvlm:
+    type: vlm
+    status: pending
+    file: configs/qwen_vlm_profile.template.yaml
+    note: "Pending: verify Qwen3.6 mmproj compatibility or use Qwen2.5-VL-32B"
